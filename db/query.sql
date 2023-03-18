@@ -34,16 +34,6 @@ INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ();
 -- update employee role
 --THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
-
-
-
-
--- extra 
--- this query will show list of all employees, role title and salary and their manager
--- this is also similar but doesn't use Alias
-SELECT employee.first_name, employee.last_name, role.title, department.department_name, role.salary, employee.manager_id 
-FROM employee 
-JOIN role ON role.id = employee.role_id
-JOIN department ON department.id = role.department_id;
+UPDATE employee SET role_id =  WHERE id = ;
 
 

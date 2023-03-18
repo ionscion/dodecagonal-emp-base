@@ -20,4 +20,6 @@ VALUES ("${title}", ${salary}, ${department_id})`;
 const addEmp = (first_name, last_name, role_id, manager_id) => `INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ("${first_name}", "${last_name}", ${role_id}, ${manager_id})`;
 
-module.exports = { selectRoles, viewDep, viewEmp, addDep, addNewRole, addEmp};
+const updateEmp = (employee_id, role_id) => `UPDATE employee SET role_id = ${role_id} WHERE id = ${employee_id}`;
+
+module.exports = { selectRoles, viewDep, viewEmp, addDep, addNewRole, addEmp, updateEmp};

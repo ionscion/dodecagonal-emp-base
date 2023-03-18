@@ -9,6 +9,7 @@ const {
   addDep,
   addNewRole,
   addEmp,
+  updateEmp,
 } = require("./db/queries");
 require("dotenv").config();
 
@@ -130,7 +131,7 @@ async function handleChoice(action) {
       await addEmployee();
       break;
     case "Update an employee role":
-      updateEmployeeRole();
+      await updateEmployeeRole();
       break;
     case "Exit":
       process.exit();
@@ -200,8 +201,16 @@ async function addEmployee() {
   });
 }
 
-function updateEmployeeRole() {
-  // code to update an employee role
+async function updateEmployeeRole() {
+  const { employee_id, new_role_id } = await inquirer.prompt(
+    updateEmployeeRolePrompt
+  );
+  const queryString = updateEmp(employee_id, new_role_id);
+  db.query(queryString, function (err, results) {
+    if (err) throw err;
+    console.log("\n");
+    console.table(results);
+  });
 }
 
 async function returnToMain() {
