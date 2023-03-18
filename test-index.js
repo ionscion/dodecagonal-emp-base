@@ -1,7 +1,6 @@
 const inquirer = require('inquirer');
 const {viewDepartments} = require("./server");
 // const { viewDepartments, addDepartment, viewAllRoles, addRole, viewAllEmployees, addEmployee, updateEmployeeRole } = require("./server");
-
 const mainPrompt = [
   {
     type: 'list',
