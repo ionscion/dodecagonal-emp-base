@@ -25,7 +25,8 @@ INSERT INTO department (department_name)
 VALUES ();
 -- add a role 
 --THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-
+INSERT INTO role (title, salary, department_id)
+VALUES ();
 
 -- add an employee
 --THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database

@@ -164,12 +164,16 @@ function viewEmployees() {
 async function addDepartment() {
   const { name } = await inquirer.prompt(addDepartmentPrompt);
   console.log(`\n You entered: ${name}`);
-  db.query(`INSERT INTO department (department_name)
-  VALUES ("${name}")`, function (err, results) {
-    if (err) throw err;
-    console.log("\n");
-    console.table(results);
-  });
+  db.query(
+    `INSERT INTO department (department_name)
+  VALUES ("${name}")`,
+    function (err, results) {
+      if (err) throw err;
+      console.log("\n");
+      console.table(results);
+      main();
+    }
+  );
 }
 
 // async function addDepartment() {
@@ -182,8 +186,16 @@ async function addDepartment() {
 //     });
 //   }
 
-function addRole() {
-  // code to add a role
+//need to change this from department_id to dept name
+async function addRole() {
+  const { title, salary, department_id } = await inquirer.prompt(addRolePrompt);
+  db.query(`INSERT INTO role (title, salary, department_id)
+  VALUES ("${title}", ${salary}, ${department_id})`, function (err, results) {
+    if (err) throw err;
+    console.log("\n");
+    console.table(results);
+    main();
+  });
 }
 
 function addEmployee() {
