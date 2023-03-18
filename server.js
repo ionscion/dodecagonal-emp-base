@@ -2,7 +2,7 @@ const express = require("express");
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const table = require("console.table");
-const { selectRoles, viewDep, viewEmp } = require("./db/queries");
+const { selectRoles, viewDep, viewEmp, addDep } = require("./db/queries");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 3001;
@@ -161,9 +161,26 @@ function viewEmployees() {
   });
 }
 
-function addDepartment() {
-  // code to add a department
+async function addDepartment() {
+  const { name } = await inquirer.prompt(addDepartmentPrompt);
+  console.log(`\n You entered: ${name}`);
+  db.query(`INSERT INTO department (department_name)
+  VALUES ("${name}")`, function (err, results) {
+    if (err) throw err;
+    console.log("\n");
+    console.table(results);
+  });
 }
+
+// async function addDepartment() {
+//     const { name } = await inquirer.prompt(addDepartmentPrompt);
+//     console.log(`\n You entered: ${name}`);
+//     db.query(addDep, function (err, results) {
+//       if (err) throw err;
+//       console.log("\n");
+//       console.table(results);
+//     });
+//   }
 
 function addRole() {
   // code to add a role
@@ -176,39 +193,6 @@ function addEmployee() {
 function updateEmployeeRole() {
   // code to update an employee role
 }
-
-// Query database
-
-// db.query(`DELETE FROM favorite_books WHERE id = ?`, 2, (err, result) => {
-//   if (err) {
-//     console.log(err);
-//   }
-//   console.log(result);
-// });
-
-// // Query database
-// db.query("SELECT * FROM favorite_books", function (err, results) {
-//   console.log(results);
-// });
-
-// Default response for any other request (Not Found)
-// app.use((req, res) => {
-//   res.status(404).end();
-// });
-
-// app.get("/", (req, res) =>
-//   res.sendFile(path.join(__dirname, "/public/index.html"))
-// );
-
-// GET Route for feedback page
-app.get("/api/movies", (req, res) =>
-  db.query("SELECT * FROM movies", function (err, rows) {
-    if (err) {
-      console.log(err);
-    }
-    res.json({ message: "george", data: rows });
-  })
-);
 
 app.listen(PORT, () => {
   console.log(`Server is self-aware on port ${PORT}`);

@@ -21,8 +21,8 @@ LEFT JOIN employee m ON m.id = e.manager_id;
 
 -- add a department
 --THEN I am prompted to enter the name of the department and that department is added to the database
-
-
+INSERT INTO department (department_name)
+VALUES ();
 -- add a role 
 --THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
 
