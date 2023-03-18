@@ -2,7 +2,14 @@ const express = require("express");
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const table = require("console.table");
-const { selectRoles, viewDep, viewEmp, addDep } = require("./db/queries");
+const {
+  selectRoles,
+  viewDep,
+  viewEmp,
+  addDep,
+  addNewRole,
+  addEmp,
+} = require("./db/queries");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 3001;
@@ -102,39 +109,39 @@ const updateEmployeeRolePrompt = [
   },
 ];
 
-async function main() {
-  let exit = false;
-
-  while (!exit) {
-    const { action } = await inquirer.prompt(mainPrompt);
-
-    switch (action) {
-      case "View all departments":
-        viewDepartments();
-        break;
-      case "Add a department":
-        addDepartment();
-        break;
-      case "View all roles":
-        viewRoles();
-        break;
-      case "Add a role":
-        addRole();
-        break;
-      case "View all employees":
-        viewEmployees();
-        break;
-      case "Add an employee":
-        addEmployee();
-        break;
-      case "Update an employee role":
-        updateEmployeeRole();
-        break;
-      case "Back":
-        exit = true;
-        break;
-    }
+async function handleChoice(action) {
+  switch (action) {
+    case "View all departments":
+      viewDepartments();
+      break;
+    case "Add a department":
+      await addDepartment();
+      break;
+    case "View all roles":
+      viewRoles();
+      break;
+    case "Add a role":
+      await addRole();
+      break;
+    case "View all employees":
+      viewEmployees();
+      break;
+    case "Add an employee":
+      await addEmployee();
+      break;
+    case "Update an employee role":
+      updateEmployeeRole();
+      break;
+    case "Exit":
+      process.exit();
+      break;
   }
+  await main();
+}
+
+async function main() {
+  const { action } = await inquirer.prompt(mainPrompt);
+  await handleChoice(action);
 }
 
 function viewDepartments() {
@@ -161,54 +168,61 @@ function viewEmployees() {
   });
 }
 
-// async function addDepartment() {
-//   const { name } = await inquirer.prompt(addDepartmentPrompt);
-//   console.log(`\n You entered: ${name}`);
-//   db.query(
-//     `INSERT INTO department (department_name)
-//   VALUES ("${name}")`,
-//     function (err, results) {
-//       if (err) throw err;
-//       console.log("\n");
-//       console.table(results);
-//       main();
-//     }
-//   );
-// }
-
 async function addDepartment() {
-    const { name } = await inquirer.prompt(addDepartmentPrompt);
-    console.log(`\n You entered: ${name}`);
-    db.query(addDep(name), function (err, results) {
-      if (err) throw err;
-      console.log("\n");
-      console.table(results);
-      main();
-    });
-  }
+  const { name } = await inquirer.prompt(addDepartmentPrompt);
+  db.query(addDep(name), function (err, results) {
+    if (err) throw err;
+    console.log("\n");
+    console.table(results);
+  });
+}
 
 //need to change this from department_id to dept name
 async function addRole() {
   const { title, salary, department_id } = await inquirer.prompt(addRolePrompt);
-  db.query(`INSERT INTO role (title, salary, department_id)
-  VALUES ("${title}", ${salary}, ${department_id})`, function (err, results) {
+  const queryString = addNewRole(title, salary, department_id);
+  db.query(queryString, function (err, results) {
     if (err) throw err;
     console.log("\n");
     console.table(results);
-    main();
   });
 }
 
-function addEmployee() {
-  // code to add an employee
+async function addEmployee() {
+  const { first_name, last_name, role_id, manager_id } = await inquirer.prompt(
+    addEmployeePrompt
+  );
+  const queryString = addEmp(first_name, last_name, role_id, manager_id);
+  db.query(queryString, function (err, results) {
+    if (err) throw err;
+    console.log("\n");
+    console.table(results);
+  });
 }
 
 function updateEmployeeRole() {
   // code to update an employee role
 }
 
+async function returnToMain() {
+  const { returnToMain } = await inquirer.prompt({
+    type: "confirm",
+    name: "returnToMain",
+    message: "Return to main menu?",
+  });
+  if (returnToMain) {
+    main();
+  } else {
+    console.log("Goodbye!");
+    process.exit();
+  }
+}
+
+(async () => {
+  console.log("Welcome to Employee Tracker");
+  await main();
+})();
+
 app.listen(PORT, () => {
   console.log(`Server is self-aware on port ${PORT}`);
 });
-
-main();

@@ -12,6 +12,12 @@ JOIN department d ON d.id = r.department_id
 LEFT JOIN employee m ON m.id = e.manager_id`;
 
 const addDep= (name) => `INSERT INTO department (department_name)
-VALUES ("${name}")`
+VALUES ("${name}")`;
 
-module.exports = { selectRoles, viewDep, viewEmp, addDep};
+const addNewRole = (title, salary, department_id) => `INSERT INTO role (title, salary, department_id)
+VALUES ("${title}", ${salary}, ${department_id})`;
+
+const addEmp = (first_name, last_name, role_id, manager_id) => `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ("${first_name}", "${last_name}", ${role_id}, ${manager_id})`;
+
+module.exports = { selectRoles, viewDep, viewEmp, addDep, addNewRole, addEmp};
