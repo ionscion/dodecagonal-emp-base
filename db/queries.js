@@ -1,4 +1,4 @@
-let name;
+
 const selectRoles = `SELECT role.id, role.title, role.salary, department.department_name
 FROM role
 JOIN department ON role.department_id = department.id`;
@@ -11,7 +11,7 @@ JOIN role r ON r.id = e.role_id
 JOIN department d ON d.id = r.department_id
 LEFT JOIN employee m ON m.id = e.manager_id`;
 
-const addDep = `INSERT INTO department (department_name)
-VALUES ("${name}");`
+const addDep= (name) => `INSERT INTO department (department_name)
+VALUES ("${name}")`
 
 module.exports = { selectRoles, viewDep, viewEmp, addDep};

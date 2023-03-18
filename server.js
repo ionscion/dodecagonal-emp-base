@@ -161,30 +161,31 @@ function viewEmployees() {
   });
 }
 
+// async function addDepartment() {
+//   const { name } = await inquirer.prompt(addDepartmentPrompt);
+//   console.log(`\n You entered: ${name}`);
+//   db.query(
+//     `INSERT INTO department (department_name)
+//   VALUES ("${name}")`,
+//     function (err, results) {
+//       if (err) throw err;
+//       console.log("\n");
+//       console.table(results);
+//       main();
+//     }
+//   );
+// }
+
 async function addDepartment() {
-  const { name } = await inquirer.prompt(addDepartmentPrompt);
-  console.log(`\n You entered: ${name}`);
-  db.query(
-    `INSERT INTO department (department_name)
-  VALUES ("${name}")`,
-    function (err, results) {
+    const { name } = await inquirer.prompt(addDepartmentPrompt);
+    console.log(`\n You entered: ${name}`);
+    db.query(addDep(name), function (err, results) {
       if (err) throw err;
       console.log("\n");
       console.table(results);
       main();
-    }
-  );
-}
-
-// async function addDepartment() {
-//     const { name } = await inquirer.prompt(addDepartmentPrompt);
-//     console.log(`\n You entered: ${name}`);
-//     db.query(addDep, function (err, results) {
-//       if (err) throw err;
-//       console.log("\n");
-//       console.table(results);
-//     });
-//   }
+    });
+  }
 
 //need to change this from department_id to dept name
 async function addRole() {
