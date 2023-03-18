@@ -1,5 +1,6 @@
 const express = require("express");
 const mysql = require("mysql2");
+const inquirer = require("inquirer");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -13,11 +14,15 @@ const db = mysql.createConnection(
   {
     host: "127.0.0.1",
     user: "root",
-    password: process.env.MYSQL_PW,
+    password: process.env.MYSQL_PW || "",
     database: "employee_db",
   },
   console.log(`Connected to the employee database.`)
 );
+
+db.query('SELECT * FROM employee', function (err, results) {
+    console.log(results);
+  });
 
 // Query database
 
