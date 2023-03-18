@@ -17,8 +17,21 @@ VALUES ("Operations Manager", 100000, 1),
        ("Treasury Manager", 120000, 5);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Rico", "Suave", 1, NULL),
+VALUES ("Rick", "Sanchez", 1, NULL),
        ("Dan", "Sassy", 2, 1),
-       ("Jeremy", "Harrison", 2, 1);
+       ("Jeremy", "Harrison", 2, 1),
+       ("Johnny", "Quest", 3, NULL),
+       ("Kirt", "Merritt", 5, NULL),
+       ("Tony", "Carl", 4, 5),
+       ("Biff", "Stevens", 4, 5),
+       ("Sweeney", "Todd", 7, NULL),
+       ("Amy", "Adamson", 6, 8),
+       ("Paul", "Foley", 6, 8),
+       ("Karen", "Crow", 6, 8),
+       ("Desiree", "Sanderson", 9, NULL),
+       ("Carlos", "Garcia", 8, 12),
+       ("Sally", "Johnson", 8, 12),
+       ("Eric", "Smalls", 2, 1),
+       ("Keisha", "Martins", 2, 1);
        
         
