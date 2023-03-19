@@ -43,3 +43,15 @@ JOIN role r ON r.id = e.role_id
 JOIN department d ON d.id = r.department_id
 WHERE d.id = 1;
 
+-- version which allows searching by department name
+SELECT e.id, e.first_name, e.last_name, d.department_name
+FROM employee e 
+JOIN role r ON r.id = e.role_id
+JOIN department d ON d.id = r.department_id
+WHERE d.department_name = 'Operations';
+
+--view employees by manager
+SELECT CONCAT(m.first_name, ' ', m.last_name) AS Manager_Name, e.manager_id, e.first_name AS Employee_FirstName, e.last_name AS Employee_LastName
+FROM employee e
+LEFT JOIN employee m ON m.id = e.manager_id 
+WHERE e.manager_id = 2;

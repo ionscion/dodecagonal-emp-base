@@ -11,7 +11,9 @@ const {
   addEmp,
   updateEmp,
   viewEmpByDep,
+  viewEmpByMgr,
 } = require("./db/queries");
+const EmployeeHandler = require("./class/class");
 require("dotenv").config();
 process.stdin.setMaxListeners(20);
 
@@ -47,6 +49,7 @@ const mainPrompt = [
       "Add an employee",
       "Update an employee role",
       "View employees by department",
+      "View employees by manager",
       "Exit",
     ],
   },
@@ -122,7 +125,16 @@ const viewEmployeeByDepPrompt = [
   },
 ];
 
+// const viewEmployeeByMgrPrompt = [
+//   {
+//     type: "input",
+//     name: "manager_id",
+//     message: "Enter Manager ID to view current list of employees",
+//   },
+// ];
+
 async function handleChoice(action) {
+    const employeeHandler = new EmployeeHandler(db,inquirer);
   switch (action) {
     case "View all departments":
       viewDepartments();
@@ -147,6 +159,10 @@ async function handleChoice(action) {
       break;
     case "View employees by department":
       await viewEmpDepartment();
+      break;
+    case "View employees by manager":
+    //   await viewEmpByManager();
+      await employeeHandler.viewEmpByManager()
       break;
     case "Exit":
       process.exit();
@@ -245,19 +261,16 @@ async function viewEmpDepartment() {
   });
 }
 
-// async function returnToMain() {
-//   const { returnToMain } = await inquirer.prompt({
-//     type: "confirm",
-//     name: "returnToMain",
-//     message: "Return to main menu?",
-//   });
-//   if (returnToMain) {
-//     main();
-//   } else {
-//     console.log("Goodbye!");
-//     process.exit();
-//   }
-// }
+async function viewEmpByManager() {
+  const { manager_id } = await inquirer.prompt(viewEmployeeByMgrPrompt);
+  const queryString = viewEmpByMgr(manager_id);
+  db.query(queryString, function (err, results) {
+    if (err) throw err;
+    console.log("\n");
+    console.table(results);
+    console.log("\n\n\n\n\n\n\n\n\n");
+  });
+}
 
 (async () => {
   console.log("Welcome to Employee Manager! \n -------------------------- \n");

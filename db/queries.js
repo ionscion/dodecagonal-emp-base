@@ -28,4 +28,9 @@ JOIN role r ON r.id = e.role_id
 JOIN department d ON d.id = r.department_id
 WHERE d.id = ${department_id}`;
 
-module.exports = { selectRoles, viewDep, viewEmp, addDep, addNewRole, addEmp, updateEmp, viewEmpByDep};
+const viewEmpByMgr = (manager_id) => `SELECT CONCAT(m.first_name, ' ', m.last_name) AS Manager_Name, e.manager_id, e.first_name AS Employee_FirstName, e.last_name AS Employee_LastName
+FROM employee e
+LEFT JOIN employee m ON m.id = e.manager_id 
+WHERE e.manager_id = ${manager_id}`;
+
+module.exports = { selectRoles, viewDep, viewEmp, addDep, addNewRole, addEmp, updateEmp, viewEmpByDep, viewEmpByMgr};
