@@ -38,6 +38,8 @@ const mainPrompt = [
       "Update an employee role",
       "View employees by department",
       "View employees by manager",
+      "Delete an employee",
+      "Delete a department",
       "Exit",
     ],
   },
@@ -72,6 +74,15 @@ async function handleChoice(action) {
       break;
     case "View employees by manager":
       await employeeHandler.viewEmpByManager();
+      break;
+    case "Delete an employee":
+      await employeeHandler.deleteEmployee();
+      break;
+    case "Delete a department":
+      await employeeHandler.deleteDepartment();
+      break;
+    case "Delete a role":
+      await employeeHandler.deleteRole();
       break;
     case "Exit":
       process.exit();

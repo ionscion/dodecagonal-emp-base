@@ -75,5 +75,27 @@ const prompts = {
       message: "What is the ID of the employee's new role?",
     },
   ],
+  deleteEmployeePrompt: [
+    {
+      type: "input",
+      name: "employee_id",
+      message: "What is the employee ID to be deleted? Warning: This will remove employee from database!",
+    },
+  ],
+  deleteDepartmentPrompt: [
+    {
+      type: "input",
+      name: "department_id",
+      message: "What is the department ID to be deleted? Warning: This will remove the department and any employees within from database!",
+    },
+  ],
+  deleteRolePrompt: [
+    {
+      type: "input",
+      name: "role_id",
+      message: "What is the role ID to be deleted? Warning: This will remove the role from database!",
+    },
+  ],
+
 };
 module.exports = prompts;

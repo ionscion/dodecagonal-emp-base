@@ -32,6 +32,10 @@ viewEmpByMgr: (manager_id) => `SELECT CONCAT(m.first_name, ' ', m.last_name) AS 
 FROM employee e
 LEFT JOIN employee m ON m.id = e.manager_id 
 WHERE e.manager_id = ${manager_id}`,
+
+delEmployee: (employee_id) => `DELETE FROM employee WHERE id=${employee_id}`,
+delDepartment: (department_id) => `DELETE FROM department WHERE id=${department_id}`,
+delRole: (role_id) => `DELETE FROM roles WHERE id=${role_id}`,
 };
 
 module.exports = queries;

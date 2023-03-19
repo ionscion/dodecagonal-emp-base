@@ -55,3 +55,10 @@ SELECT CONCAT(m.first_name, ' ', m.last_name) AS Manager_Name, e.manager_id, e.f
 FROM employee e
 LEFT JOIN employee m ON m.id = e.manager_id 
 WHERE e.manager_id = 2;
+
+--Delete departments, roles, and employees.
+DELETE FROM department WHERE id=X;
+--roles
+DELETE FROM roles WHERE id=X;
+--employees
+DELETE FROM employee WHERE id=X;
