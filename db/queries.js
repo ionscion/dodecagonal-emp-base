@@ -22,4 +22,10 @@ VALUES ("${first_name}", "${last_name}", ${role_id}, ${manager_id})`;
 
 const updateEmp = (employee_id, role_id) => `UPDATE employee SET role_id = ${role_id} WHERE id = ${employee_id}`;
 
-module.exports = { selectRoles, viewDep, viewEmp, addDep, addNewRole, addEmp, updateEmp};
+const viewEmpByDep = (department_id) => `SELECT e.id, e.first_name, e.last_name, d.department_name
+FROM employee e 
+JOIN role r ON r.id = e.role_id
+JOIN department d ON d.id = r.department_id
+WHERE d.id = ${department_id}`;
+
+module.exports = { selectRoles, viewDep, viewEmp, addDep, addNewRole, addEmp, updateEmp, viewEmpByDep};

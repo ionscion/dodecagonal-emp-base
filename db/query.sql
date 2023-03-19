@@ -36,4 +36,10 @@ VALUES ();
 --THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 UPDATE employee SET role_id =  WHERE id = ;
 
+--view employees by department
+SELECT e.id, e.first_name, e.last_name, d.department_name
+FROM employee e 
+JOIN role r ON r.id = e.role_id
+JOIN department d ON d.id = r.department_id
+WHERE d.id = 1;
 

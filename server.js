@@ -10,8 +10,10 @@ const {
   addNewRole,
   addEmp,
   updateEmp,
+  viewEmpByDep,
 } = require("./db/queries");
 require("dotenv").config();
+process.stdin.setMaxListeners(20);
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -44,6 +46,8 @@ const mainPrompt = [
       "View all employees",
       "Add an employee",
       "Update an employee role",
+      "View employees by department",
+      "Exit",
     ],
   },
 ];
@@ -110,6 +114,14 @@ const updateEmployeeRolePrompt = [
   },
 ];
 
+const viewEmployeeByDepPrompt = [
+  {
+    type: "input",
+    name: "department_id",
+    message: "Enter Department ID to view current list of employees",
+  },
+];
+
 async function handleChoice(action) {
   switch (action) {
     case "View all departments":
@@ -133,9 +145,11 @@ async function handleChoice(action) {
     case "Update an employee role":
       await updateEmployeeRole();
       break;
+    case "View employees by department":
+      await viewEmpDepartment();
+      break;
     case "Exit":
       process.exit();
-      break;
   }
   await main();
 }
@@ -150,6 +164,7 @@ function viewDepartments() {
     if (err) throw err;
     console.log("\n");
     console.table(results);
+    console.log("\n\n\n\n\n\n\n\n\n");
   });
 }
 
@@ -158,6 +173,7 @@ function viewRoles() {
     if (err) throw err;
     console.log("\n");
     console.table(results);
+    console.log("\n\n\n\n\n\n\n\n\n");
   });
 }
 
@@ -166,6 +182,7 @@ function viewEmployees() {
     if (err) throw err;
     console.log("\n");
     console.table(results);
+    console.log("\n\n\n\n\n\n\n\n\n");
   });
 }
 
@@ -175,6 +192,7 @@ async function addDepartment() {
     if (err) throw err;
     console.log("\n");
     console.table(results);
+    console.log("\n\n\n\n\n\n\n\n\n");
   });
 }
 
@@ -186,6 +204,7 @@ async function addRole() {
     if (err) throw err;
     console.log("\n");
     console.table(results);
+    console.log("\n\n\n\n\n\n\n\n\n");
   });
 }
 
@@ -198,6 +217,7 @@ async function addEmployee() {
     if (err) throw err;
     console.log("\n");
     console.table(results);
+    console.log("\n\n\n\n\n\n\n\n\n");
   });
 }
 
@@ -210,25 +230,37 @@ async function updateEmployeeRole() {
     if (err) throw err;
     console.log("\n");
     console.table(results);
+    console.log("\n\n\n\n\n\n\n\n\n");
   });
 }
 
-async function returnToMain() {
-  const { returnToMain } = await inquirer.prompt({
-    type: "confirm",
-    name: "returnToMain",
-    message: "Return to main menu?",
+async function viewEmpDepartment() {
+  const { department_id } = await inquirer.prompt(viewEmployeeByDepPrompt);
+  const queryString = viewEmpByDep(department_id);
+  db.query(queryString, function (err, results) {
+    if (err) throw err;
+    console.log("\n");
+    console.table(results);
+    console.log("\n\n\n\n\n\n\n\n\n");
   });
-  if (returnToMain) {
-    main();
-  } else {
-    console.log("Goodbye!");
-    process.exit();
-  }
 }
+
+// async function returnToMain() {
+//   const { returnToMain } = await inquirer.prompt({
+//     type: "confirm",
+//     name: "returnToMain",
+//     message: "Return to main menu?",
+//   });
+//   if (returnToMain) {
+//     main();
+//   } else {
+//     console.log("Goodbye!");
+//     process.exit();
+//   }
+// }
 
 (async () => {
-  console.log("Welcome to Employee Tracker");
+  console.log("Welcome to Employee Manager! \n -------------------------- \n");
   await main();
 })();
 
