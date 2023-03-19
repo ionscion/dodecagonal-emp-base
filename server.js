@@ -23,6 +23,7 @@ const db = mysql.createConnection(
   },
   console.log(`Connected to the employee database.`)
 );
+//main Inquirer prompt, this will be what the user sees upon starting application
 const mainPrompt = [
   {
     type: "list",
@@ -40,11 +41,13 @@ const mainPrompt = [
       "View employees by manager",
       "Delete an employee",
       "Delete a department",
+      "Delete a role",
       "Exit",
     ],
   },
 ];
 
+//instantiates new employeeHandler class and calls class methods based on selections
 async function handleChoice(action) {
   const employeeHandler = new EmployeeHandler(db, inquirer);
   switch (action) {

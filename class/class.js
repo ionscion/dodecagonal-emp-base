@@ -1,3 +1,6 @@
+/* EmployeeHandler class - this is instatiated in server.js async function HandleChoice to access methods */
+
+//importing query strings and functions from database queries.js
 const {
   selectRoles,
   viewDep,
@@ -13,6 +16,7 @@ const {
   delRole,
 } = require("../db/queries");
 
+//import inquirer prompts from prompts.js
 const {
   viewEmployeeByMgrPrompt,
   viewEmployeeByDepPrompt,
@@ -27,6 +31,7 @@ const {
 
 printLineBreaks = (num) => console.log("\n".repeat(num));
 
+//main Employee Handler class
 class EmployeeHandler {
   constructor(db, inquirer) {
     this.db = db;

@@ -1,3 +1,7 @@
+/* 
+This section houses the inquirer prompts that are used by the class.js employeeHandler class
+ */
+
 const prompts = {
   viewEmployeeByDepPrompt: [
     {
