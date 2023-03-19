@@ -100,6 +100,13 @@ const prompts = {
       message: "What is the role ID to be deleted? Warning: This will remove the role from database!",
     },
   ],
+  viewBudgetPrompt: [
+    {
+      type: "input",
+      name: "department_id",
+      message: "Please enter department ID to view total utilized budget",
+    },
+  ],
 
 };
 module.exports = prompts;

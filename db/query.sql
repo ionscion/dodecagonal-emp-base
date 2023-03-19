@@ -1,5 +1,5 @@
 
---THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
+-- These are the raw queries used in queries.js file, in the queries below, user implemented data will have an X which is replaced by the inquirer prompts
 
 -- view all departments 
 --THEN I am presented with a formatted table showing department names and department ids
@@ -34,7 +34,7 @@ INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ();
 -- update employee role
 --THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
-UPDATE employee SET role_id =  WHERE id = ;
+UPDATE employee SET role_id =  WHERE id = X;
 
 --view employees by department
 SELECT e.id, e.first_name, e.last_name, d.department_name
@@ -54,7 +54,7 @@ WHERE d.department_name = 'Operations';
 SELECT CONCAT(m.first_name, ' ', m.last_name) AS Manager_Name, e.manager_id, e.first_name AS Employee_FirstName, e.last_name AS Employee_LastName
 FROM employee e
 LEFT JOIN employee m ON m.id = e.manager_id 
-WHERE e.manager_id = 2;
+WHERE e.manager_id = X;
 
 --Delete departments, roles, and employees.
 DELETE FROM department WHERE id=X;
@@ -62,3 +62,12 @@ DELETE FROM department WHERE id=X;
 DELETE FROM roles WHERE id=X;
 --employees
 DELETE FROM employee WHERE id=X;
+
+-- the combined salaries of all employees in that department.
+
+SELECT d.department_name AS Dept_Name, SUM(r.salary) AS Utilized_Budget
+FROM employee e 
+JOIN role r ON r.id = e.role_id
+JOIN department d ON d.id = r.department_id
+WHERE d.id = X
+GROUP BY d.department_name;

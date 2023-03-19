@@ -53,8 +53,15 @@ WHERE e.manager_id = ${manager_id}`,
 
   delDepartment: (department_id) =>
     `DELETE FROM department WHERE id=${department_id}`,
-    
+
   delRole: (role_id) => `DELETE FROM role WHERE id=${role_id}`,
+
+  viewBudget: (department_id) => `SELECT d.department_name AS Dept_Name, SUM(r.salary) AS Utilized_Budget
+  FROM employee e 
+  JOIN role r ON r.id = e.role_id
+  JOIN department d ON d.id = r.department_id
+  WHERE d.id = ${department_id}
+  GROUP BY d.department_name`
 };
 
 module.exports = queries;

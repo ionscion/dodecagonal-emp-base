@@ -42,6 +42,7 @@ const mainPrompt = [
       "Delete an employee",
       "Delete a department",
       "Delete a role",
+      "View utilized budget by department",
       "Exit",
     ],
   },
@@ -86,6 +87,9 @@ async function handleChoice(action) {
       break;
     case "Delete a role":
       await employeeHandler.deleteRole();
+      break;
+    case "View utilized budget by department":
+      await employeeHandler.viewTotalBudget();
       break;
     case "Exit":
       process.exit();
