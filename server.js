@@ -21,7 +21,7 @@ const db = mysql.createConnection(
     password: process.env.MYSQL_PW,
     database: "employee_db",
   },
-  console.log(`Connected to the employee database.`)
+  console.log(`Connected to the employee database. \n`)
 );
 //main Inquirer prompt, this will be what the user sees upon starting application
 const mainPrompt = [
@@ -103,7 +103,7 @@ async function main() {
 }
 
 (async () => {
-  console.log("Welcome to Employee Manager! \n -------------------------- \n");
+  console.log("\n -------------------------- \n Welcome to Employee Manager! \n -------------------------- \n");
   await main();
 })();
 

@@ -37,5 +37,8 @@ THEN I am prompted to select an employee to update and their new role and this i
 - Additional functionality was developed to allow for viewing data by departments, managers, deletion of records etc.
 - Since the mySQL server requires a password to enter, a local environment variable was created to store that and added to the gitIgnore file to ensure the password is not shared on a public website. 
 
+## Future Development
+- Right now the app is built around entering valid id's to perform the addition and delete functions. In the future I'd like to add functionality to call the database and render current lists.
+
 ## Walkthrough Video
 Link to walkthrough video can be found here:

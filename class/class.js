@@ -46,6 +46,14 @@ class EmployeeHandler {
     printLineBreaks(10);
   }
 
+  async getDepartmentChoices() {
+    const departments = await this.db.query("SELECT * FROM department");
+    return departments.map((department) => ({
+      name: department.department_name,
+      value: department.id,
+    }));
+  }  
+
   viewDepartments() {
     this.db.query(viewDep, (err, results) => this.printResults(err, results));
   }

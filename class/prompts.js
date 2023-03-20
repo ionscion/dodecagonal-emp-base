@@ -1,7 +1,7 @@
+
 /* 
 This section houses the inquirer prompts that are used by the class.js employeeHandler class
  */
-
 const prompts = {
   viewEmployeeByDepPrompt: [
     {
@@ -25,7 +25,6 @@ const prompts = {
       message: "What is the name of the department?",
     },
   ],
-
   addRolePrompt: [
     {
       type: "input",
@@ -37,6 +36,12 @@ const prompts = {
       name: "salary",
       message: "What is the salary for the role?",
     },
+    // {
+    //   type: "list",
+    //   name: "department_id",
+    //   message: "Which department does the role belong to?",
+    //   choices: getDepartmentChoices(),
+    // },
     {
       type: "input",
       name: "department_id",
@@ -83,21 +88,24 @@ const prompts = {
     {
       type: "input",
       name: "employee_id",
-      message: "What is the employee ID to be deleted? Warning: This will remove employee from database!",
+      message:
+        "What is the employee ID to be deleted? Warning: This will remove employee from database!",
     },
   ],
   deleteDepartmentPrompt: [
     {
       type: "input",
       name: "department_id",
-      message: "What is the department ID to be deleted? Warning: This will remove the department and any employees within from database!",
+      message:
+        "What is the department ID to be deleted? Warning: This will remove the department and any employees within from database!",
     },
   ],
   deleteRolePrompt: [
     {
       type: "input",
       name: "role_id",
-      message: "What is the role ID to be deleted? Warning: This will remove the role from database!",
+      message:
+        "What is the role ID to be deleted? Warning: This will remove the role from database!",
     },
   ],
   viewBudgetPrompt: [
@@ -107,6 +115,5 @@ const prompts = {
       message: "Please enter department ID to view total utilized budget",
     },
   ],
-
 };
 module.exports = prompts;
